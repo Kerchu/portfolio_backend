@@ -23,10 +23,10 @@ router.post('/login', (req,res)=>{
         if(!err){
             if(rows.length>0){
                 let data = JSON.stringify(rows[0]);
-                const token = jwt.sign(data, 'belgrano');
+                const token = jwt.sign(data, 'kaede');
                 res.json({token});
             }else{
-                res.json('Mail o Contraseña incorrectos')
+                res.json('Wrong Mail or Password')
             }
         }else{
             console.log(err);
@@ -42,7 +42,7 @@ function verifyToken(req,res,next){
     if(!req.headers.authorization) return res.status(401).json('Unauthorized');
     const token = req.headers.authorization.substr(7);
     if(token!=''){
-        const content = jwt.verify(token, 'belgrano');
+        const content = jwt.verify(token, 'kaede');
         req.data = content;
         next();
     }else{
